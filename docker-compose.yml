@@ -1,0 +1,39 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: "rabbitmq"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+      - "5671:5671"
+    environment:
+      - RABBITMQ_DEFAULT_PASS
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_VHOST
+
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+
+  server:
+    build: ./server
+    image: chat_poc_server
+    ports:
+      - "3001:3001"
+    working_dir: /app/server
+    volumes:
+      - ./server:/app/server
+      - ./server/.env:/app/.env
+
+    links:
+      - rabbitmq
+      - mongodb
+    command: nodemon bin/www --ignore node_modules
+
+
+
+
