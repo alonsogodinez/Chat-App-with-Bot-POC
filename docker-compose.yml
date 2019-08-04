@@ -23,7 +23,9 @@ services:
     build: ./server
     image: chat_poc_server
     ports:
-      - "3001:3001"
+      - "3001:3000"
+    depends_on:
+      - rabbitmq
     working_dir: /app/server
     volumes:
       - ./server:/app/server
