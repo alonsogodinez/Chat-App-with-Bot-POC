@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1.center-align CHAT APP
+  section.auth-form-wrapper
+    form.auth-form#login-form
+      label(for="login-user-input") Username:
+      input#login-user-input(type="text")
+      label(for="login-password-input") Password:
+      input#login-password-input(type="password")
+      button#login-btn.waves-effect.waves-light.btn-large Sign in
+    p.sign-up-message
+      | New here?
+      a(href="/sign-up") Sign up
+
+block libs
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js')
+
+block scripts
+  script(src='/js/login.js')

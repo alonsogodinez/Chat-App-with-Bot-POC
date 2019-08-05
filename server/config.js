@@ -1,47 +1,25 @@
-const env = process.env.NODE_ENV || 'development';
 const config = {
-
-    development: {
-        rabbitmq: {
-            user: 'user',
-            pass: 'pass',
-            host: 'rabbitmq',
-            port: '5672',
-            vhost: 'vhost'
-        },
-        mongo: {
-
-        }
-
+    NODE_ENV: process.env.NODE_ENV || 'development',
+    rabbitmq: {
+        user: process.env.RABBITMQ_USER,
+        pass: process.env.RABBITMQ_PASS,
+        host: process.env.RABBITMQ_HOST,
+        port: process.env.RABBITMQ_PORT,
+        vhost: process.env.RABBITMQ_VHOST
     },
-    stage: {
-        rabbitmq: {
-            user: 'user',
-            pass: 'pass',
-            host: 'stage.rabbitmq',
-            port: '5672',
-            vhost: 'vhost'
-        },
-        mongo: {
-
-        }
+    mongo: {
+        user: process.env.MONGO_USER,
+        pass: process.env.MONGO_PASS,
+        host: process.env.MONGO_HOST,
+        port: process.env.MONGO_PORT,
+        db: process.env.MONGO_DB
     },
-
-    production: {
-        rabbitmq: {
-            user: 'user',
-            pass: 'pass',
-            host: 'prod.rabbitmq',
-            port: '5672',
-            vhost: 'vhost'
-        },
-        mongo: {
-
-        }
+    jwt: {
+        secret: process.env.JWT_SECRET
     }
 };
 
-module.exports = config[env];
+module.exports = config;
 
 
 

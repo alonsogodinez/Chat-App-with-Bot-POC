@@ -14,10 +14,13 @@ services:
 
   mongodb:
     image: mongo:latest
-    container_name: "mongodb"
+    hostname: "mongodb"
     ports:
       - 27017:27017
-    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_INITDB_DATABASE
 
   server:
     build: ./server
@@ -30,12 +33,22 @@ services:
     volumes:
       - ./server:/app/server
       - ./server/.env:/app/.env
-
     links:
       - rabbitmq
       - mongodb
     command: nodemon bin/www --ignore node_modules
-
+    environment:
+      - RABBITMQ_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_VHOST=${RABBITMQ_DEFAULT_VHOST}
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - MONGO_USER=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_PASS=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_DB=${MONGO_INITDB_DATABASE}
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - JWT_SECRET
 
 
 

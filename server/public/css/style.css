@@ -1,0 +1,44 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a, h1, h4 {
+  color: #26a69a;
+}
+
+
+
+.auth-form-wrapper {
+  border-radius: 12px;
+  width: 26em;
+  margin: 5em auto auto;
+  padding: 2.5em;
+  border: 2px solid #26a69a;
+}
+
+.auth-form {
+  margin: 1em 0 ;
+}
+
+.auth-form button {
+  margin-top: 1em;
+}
+
+
+
+
+.sign-up-message {
+  margin-top: 24px;
+}
+
+.sign-up-message a{
+  margin-left: 8px;
+}
+
+.mt-1_5 {
+  margin-top: 1.5em;
+}
+
+
+
