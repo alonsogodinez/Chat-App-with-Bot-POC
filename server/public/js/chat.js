@@ -16,8 +16,13 @@ chatRoomsSocket.on('connectedToChatRoom', (room) => {
 });
 
 chatRoomsSocket.on('newMessage', message => {
-    insertMessageToList(message, { atEnd: true });
-    $chatroomMessages.scrollTop($chatroomMessages[0].scrollHeight);
+    if (message.err) {
+        showError(message.err);
+    } else {
+        insertMessageToList(message, { atEnd: true });
+        $chatroomMessages.scrollTop($chatroomMessages[0].scrollHeight);
+    }
+
 });
 
 const createRoom = (name) => {

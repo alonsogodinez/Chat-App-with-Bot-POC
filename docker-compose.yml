@@ -40,8 +40,6 @@ services:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
 
-
-
   server:
     build: ./server
     image: chat_poc_server

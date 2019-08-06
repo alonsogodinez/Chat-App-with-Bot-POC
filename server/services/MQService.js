@@ -17,18 +17,18 @@ module.exports.publishToBotQueue = async (data) => {
     //await channel.assertQueue('bot-responses');
     const responseQueue = await channel.assertQueue('', {
         exclusive: true
-    })
+    });
     await channel.sendToQueue('bot-requests', new Buffer(data), {
         replyTo: responseQueue.queue,
         correlationId,
     });
 
     channel.consume(responseQueue.queue, function (msg) {
-        const {sender, content, room, correlationId} = JSON.parse(msg.content.toString());
+        //TODO; research regarding correlationId missing on random requests
+        const {sender, content, room, correlationId, err} = JSON.parse(msg.content.toString());
         const _correlationId = msg.properties.correlationId || correlationId;
-        console.log(_correlationId)
         if (_correlationId === correlationId) {
-            app.get('io').sendChatMessage({sender, content, room});
+            app.get('io').sendChatMessage({sender, content, room, err});
             channel.ack(msg);
             setTimeout(() => conn.close())
 

@@ -81,6 +81,9 @@ a, h1, h4 {
 }
 .chatroom-list {
   height: 100%;
+  max-height: calc(100% - 114px);
+  overflow-y: auto;
+  margin:0;
 }
 .chatroom-list-wrapper #create-chat-btn {
   width: 100%;
@@ -188,7 +191,7 @@ a, h1, h4 {
 .chatroom-inputs {
   border-top: 2px solid #26a69a;
   display: flex;
-  height: 55px;
+  height: 70px;
   overflow: hidden;
 }
 

@@ -39,12 +39,12 @@ module.exports = (server) => {
             });
         });
 
-    const sendChatMessage = ({room, content, sender}) => {
-        console.log('alonso', {room, content, sender})
+    const sendChatMessage = ({room, content, sender, err}) => {
         return chatIO.to(room).emit("newMessage", {
             createdAt: Date.now(),
             content,
-            sender
+            sender,
+            err
         })
     };
 
