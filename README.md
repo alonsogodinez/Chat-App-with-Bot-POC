@@ -1,6 +1,6 @@
-#Chat App
+# Chat App
 
-### Pre-requirements
+### Requirements
 * Docker
 
 ### Setup
