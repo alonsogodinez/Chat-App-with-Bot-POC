@@ -38,18 +38,15 @@ amqp.connect(CONN_URL)
             const correlationId = msg.properties.correlationId;
             const { content: stockCode} = messageData;
 
-            return request(`https://stooq.com/q/l/?s=${stockCode}&f=sd2t2ohlcv&h&e=csv`, (err, response, body) => {
-
+            return request(`https://stooq.com/q/l/?s=${stockCode}&f=sd2t2ohlcv&h&e=csv`, (err, res, body) => {
+                let response = { correlationId, room: messageData.room };
                 if (err) {
                     channel.sendToQueue(msg.properties.replyTo,
-                        Buffer.from(JSON.stringify({ err, correlationId}), {
+                        Buffer.from(JSON.stringify({ err, ...response}), {
                             correlationId
                         })
                     )
                 } else {
-
-                    let response = { correlationId, room: messageData.room };
-
                     const closeQuote = csvToJson(body)[0] && csvToJson(body)[0]["Close"];
 
                     if (!closeQuote || closeQuote === 'N/D') {

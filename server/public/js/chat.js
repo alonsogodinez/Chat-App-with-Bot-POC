@@ -37,7 +37,6 @@ const createRoom = (name) => {
             chatRoomsSocket.emit('joinChatRoom', data.chatRoom._id);
             if (!data.chatRoom.messages) data.chatRoom.messages = [];
             buildChatRoomMessages(data.chatRoom);
-
         })
         .catch((err) => {
             showError(err.message)
