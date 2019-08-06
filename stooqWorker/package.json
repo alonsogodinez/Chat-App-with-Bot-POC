@@ -1,0 +1,16 @@
+{
+  "name": "stooq-worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "stooqWorker",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "lodash": "^4.17.15",
+    "request": "^2.88.0"
+  }
+}

@@ -1,8 +1,7 @@
 const socketioJwt = require('socketio-jwt');
-const { addMessage } = require('./controllers/chatroom');
-const { publishToBotQueue } = require("./services/MQService");
-const { jwt } = require('./config');
-
+const {addMessage} = require('./controllers/chatroom');
+const {publishToBotQueue} = require("./services/MQService");
+const {jwt} = require('./config');
 
 module.exports = (server) => {
     const io = require('socket.io')(server);
@@ -12,7 +11,7 @@ module.exports = (server) => {
         handshake: true
     }));
 
-    const chat = io
+    const chatIO = io
         .of('/chat')
         .on('connection', (socket) => {
 
@@ -25,25 +24,32 @@ module.exports = (server) => {
                 socket.leave(room);
             });
 
-            socket.on('emitToChatRoom', ({ room, msg, sender}) => {
+            socket.on('emitToChatRoom', ({room, msg, sender}) => {
                 const message = {
                     content: msg,
                     sender
                 };
                 if (msg.match(/^\/stock=/)) { //is bot command
-                    publishToBotQueue(msg.split('/stock=')[1])
-                        .then((response) => chat.to(room).emit("newMessage", {
-                            createdAt: Date.now(),
-                            content: response,
-                            sender
-                        }))
+                    publishToBotQueue(JSON.stringify({...message, room, content: msg.split('/stock=')[1]}))
                 } else {
-                    addMessage({ _id: room, message })
-                        .then(() => chat.to(room).emit("newMessage", message))
+                    addMessage({_id: room, message})
+                        .then(() => chatIO.to(room).emit("newMessage", message))
                 }
 
             });
         });
 
-    return io;
+    const sendChatMessage = ({room, content, sender}) => {
+        console.log('alonso', {room, content, sender})
+        return chatIO.to(room).emit("newMessage", {
+            createdAt: Date.now(),
+            content,
+            sender
+        })
+    };
+
+    return {
+        io,
+        sendChatMessage
+    };
 };

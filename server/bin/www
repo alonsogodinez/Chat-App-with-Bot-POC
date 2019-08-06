@@ -8,10 +8,11 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
-//init socket.io
-require("../sockets")(server);
-
 server.listen(port);
+
+//init socket.io
+app.set('io', require("../sockets")(server, app))
+
 server.on('error', onError);
 server.on('listening', onListening);
 
