@@ -7,7 +7,26 @@ a, h1, h4 {
   color: #26a69a;
 }
 
+.preloader-background {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(245, 245, 245, 0.49);
+  align-items: center;
+  justify-content: center;
+}
+.preloader-background.active {
+  
+  display: flex;
+}
 
+.preloader-wrapper {
+
+}
 
 .auth-form-wrapper {
   border-radius: 12px;
@@ -25,9 +44,6 @@ a, h1, h4 {
   margin-top: 1em;
 }
 
-
-
-
 .sign-up-message {
   margin-top: 24px;
 }
@@ -38,6 +54,157 @@ a, h1, h4 {
 
 .mt-1_5 {
   margin-top: 1.5em;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 2em;
+  right: 2em;
+}
+
+.chat-wrapper {
+  border: 2px solid #26a69a;
+  border-radius: 8px;
+  height: 50em;
+  min-width: 55em;
+  display: flex;
+  margin: auto;
+}
+.chatroom-list-wrapper{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 25em;
+  border-right: 2px solid #26a69a;
+}
+.chatroom-list {
+  height: 100%;
+}
+.chatroom-list-wrapper #create-chat-btn {
+  width: 100%;
+  border-radius: 0;
+  height: 60px;
+}
+
+.chatroom-list-title {
+  padding-left: 1em;
+}
+
+.chatroom-list-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5em;
+  text-transform: uppercase;
+  width: 100%;
+  background: #80cbc4;
+  border: 0 solid red;
+  border-top: 1px solid  #26a69a;
+  border-bottom: 1px solid #26a69a;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.chatroom-list-item:hover{
+  opacity: .8;
+}
+
+.chatroom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.chatroom-messages {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.chatroom-messages-item {
+  width: calc(100% - 2em);
+  display: inline-block;
+  margin: 0 1em;
+  font-size: 0.9em;
+  clear: both;
+  float: left;
+}
+
+.chatroom-messages-item .content {
+  background: #26a69a;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 12px;
+  max-width: 205px;
+  line-height: 150%;
+  color: white;
+}
+
+.chatroom-messages-item .metadata {
+  float: left;
+  text-align: right;
+  font-size: .7em;
+}
+
+.chatroom-messages-item.right .metadata {
+  float: right;
+  text-align: left;
+}
+
+.chatroom-messages-item.right .content {
+  background: #f5f5f5;
+  float: right;
+  color: #26a69a;
+  border: 1px solid #26a69a;
+}
+
+.chatroom-messages-item .sender {
+  font-size: 1.3em;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  max-width: 79px;
+}
+
+
+.chatroom-messages-item span{
+  font-size: .6em;
+  margin-top: 4em;
+  margin-right: 1.5em;
+}
+
+.chatroom-messages-item.right span{
+  font-size: .6em;
+  float: right;
+  margin-top: 4em;
+  margin-left: 2em;
+}
+
+.chatroom-inputs {
+  border-top: 2px solid #26a69a;
+  display: flex;
+  height: 55px;
+  overflow: hidden;
+}
+
+.chatroom-inputs input {
+  margin: 0;
+  padding-left: 20px;
+  border: none;
+  height: 100%;
+}
+
+.chatroom-inputs button{
+  width: 10em;
+  height: 100%;
+  border-radius: 0 0 4px 0;
+}
+
+
+.swal2-styled.swal2-confirm.btn-large {
+  background: #26a69a;
+  padding: 0 28px;
 }
 
 

@@ -24,11 +24,20 @@ userSchema.pre('save', function(next) {
         next();
     } else {
         return bcrypt.hash(user.password, 10)
-            .then(()=> {
+            .then((hash)=> {
                 user.password = hash;
                 next();
             })
-            .catch(() => next(new Error(`Error hashing password for ${user.name}`)))
+            .catch(() =>
+                next(new Error(`Error hashing password for ${user.username}`)))
+    }
+});
+
+userSchema.post('save', function(error, doc, next) {
+    if (error.name === 'MongoError' && error.code === 11000) {
+        next({ message: `username "${doc.username}" already exists`, name: "Duplication error"});
+    } else {
+        next();
     }
 });
 

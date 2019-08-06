@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const { mongo: { user, pass, db, host, port } } = require('../config');
 
 module.exports.getMongoURI = () => {
-    console.log(`mongodb://${user}:${pass}@${host}:${port}/${db}?authSource=admin`)
     return `mongodb://${user}:${pass}@${host}:${port}/${db}?authSource=admin`
 };
 

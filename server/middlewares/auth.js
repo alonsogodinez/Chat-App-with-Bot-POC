@@ -2,24 +2,36 @@ const jwt = require('jsonwebtoken');
 const { jwt: { secret : SECRET} } = require('../config');
 
 module.exports.isAuthenticated = (req, res, next) => {
+    function clearTokenAndNext(err) {
+        res.clearCookie("token");
+        next(err);
+    }
+
+    const isAPICall = req.baseUrl.match(/^\/api\/v/);
+
     const authorizationHeader = req.headers.authorization;
-    if (authorizationHeader) {
-        const token = req.headers.authorization.split(' ')[1]; // Bearer <token>
-        const options = { expiresIn: '2d' };
-        try {
-            req.decoded = jwt.verify(token, SECRET, options);;
-            next();
-        } catch (err) {
-            next(new Error(err));
-        }
+
+    const token =  isAPICall ? authorizationHeader && authorizationHeader.split(' ')[1] : req.cookies.token;
+
+    if (!token) {
+        isAPICall ? res.sendStatus(401) : res.redirect('/login');
     } else {
-        if(req.method.toLowerCase() === "GET"){
-            res.redirect('/login');
-        } else {
-            res.sendStatus(401)
-        }
+        const options = { expiresIn: 86400 };
+        jwt.verify(token, SECRET, (err, decodedToken) => {
+            if (err) {
+                return clearTokenAndNext(err);
+            }
+            if (decodedToken.exp <= Date.now() / 1000) {
+                return clearTokenAndNext(new Error('Token has expired'));
+            }
+
+            req.decoded = jwt.verify(token, SECRET, options);
+            next();
+        });
 
     }
+
+
 
 };
 

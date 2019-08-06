@@ -7,8 +7,19 @@ html
     link(rel='stylesheet', href='/css/style.css')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
   body
+
+    .preloader-background
+      .preloader-wrapper.big
+        .spinner-layer.spinner-teal.lighten-1
+          .circle-clipper.left
+            .circle
+          .gap-patch
+            .circle
+          .circle-clipper
+            .circle
     block content
     block libs
+    script(src='https://code.jquery.com/jquery-3.4.1.min.js', integrity='sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=', crossorigin='anonymous')
     script(src='/js/main.js')
     block scripts
 

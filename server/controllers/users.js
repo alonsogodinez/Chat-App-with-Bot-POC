@@ -5,11 +5,13 @@ const { jwt: { secret : JWT_SECRET} } = require('../config')
 
 module.exports = {
     add(req, res) {
-        const { name, password } = req.body;
+        const { username, password } = req.body;
         const user = new User({ username, password });
         return user.save()
-            .then( user => res.json({ user: { username } }))
-            .catch(err => res.status(500).send({ error: err}))
+            .then( user => res.json({ user: { username: user.username } }))
+            .catch(err => {
+                res.status(500).send({ error: err.name, ...err.errors, message: err.message})
+            })
     },
 
     list(req, res) {
@@ -28,11 +30,14 @@ module.exports = {
             .then(match => {
                 if (match) {
                     const payload = { username };
-                    const options = { expiresIn: '2d' };
+                    const options = { expiresIn: 86400 };
                     const token = jwt.sign(payload, JWT_SECRET, options);
-                    res.json({ success: true, token })
+
+                    res.status(200)
+                        .cookie('token', token, { maxAge: 86400 })
+                        .send({ token })
                 } else {
-                    res.status(401).send({ error: 'Authentication error'})
+                    res.status(401).send({ error: 'Authentication error', message: "The username or password is incorrect" })
                 }
 
             })

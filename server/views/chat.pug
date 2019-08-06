@@ -2,18 +2,23 @@ extends layout
 
 block content
     h1.center-align CHAT APP
-    section.login-wrapper
-        form.login-form
-            label(for="login-user-input") Username:
-            input#login-user-input(type="text")
-            label(for="login-password-input") Password:
-            input#login-password-input(type="password")
-            button#login-btn.waves-effect.waves-light.btn-large Sign in
-        p.sign-up-message
-            | New here?
-            a(href="/sign-up") Sign up
+    a.logout-btn(href='#') Logout
+    section.chat-wrapper
+        section.chatroom-list-wrapper
+            h5.chatroom-list-title.teal-text ChatRooms List
+            ul.chatroom-list
+            button.waves-effect.waves-light.btn-large#create-chat-btn Create Chat Room
+        section.chatroom
+            ul.chatroom-messages
+            section.chatroom-inputs
+                input#chatroom-msg-input(placeholder="Type your message...")
+                button.waves-effect.waves-light.btn#chatroom-msg-button Send
+
 
 block libs
     script(src='/socket.io/socket.io.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/sweetalert2@8')
+
 block scripts
     script(src='/js/chat.js')

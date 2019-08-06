@@ -5,16 +5,17 @@ block content
     section.auth-form-wrapper
         h4 SIGN UP
         form.mt-1_5.auth-form#signup-form
-            label(for="signup-user-input") Username:
-            input#signup-user-input(type="text")
-            label(for="signup-password-input") Password:
-            input#signup-password-input(type="password")
-            label(for="signup-password2-input") Confirm password:
-            input#signup-password2-input(type="password")
+            label(for="username-input") Username:
+            input#username-input(type="text")
+            label(for="password-input") Password:
+            input#password-input(type="password")
+            label(for="password2-input") Confirm password:
+            input#password2-input(type="password")
             button#signup-btn.waves-effect.waves-light.btn-large Confirm
 
 block libs
     script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/sweetalert2@8')
 
 block scripts
     script(src='/js/signup.js')
