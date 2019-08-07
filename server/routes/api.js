@@ -7,6 +7,7 @@ const { isAuthenticated } = require('../middlewares/auth');
 
 router.post('/signup', userController.add);
 router.post('/login', userController.login);
+router.post('/logout', userController.logout);
 
 //router.post('/chatroom/message', chatRoomController.addMessage);
 

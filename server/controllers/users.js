@@ -42,7 +42,10 @@ module.exports = {
 
             })
             .catch(err => res.status(500).send({ error: err}))
-
+    },
+    logout(req, res) {
+        res.clearCookie("token");
+        res.sendStatus(200);
     }
 
 };

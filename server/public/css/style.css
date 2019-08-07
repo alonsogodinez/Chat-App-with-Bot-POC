@@ -56,7 +56,7 @@ a, h1, h4 {
   margin-top: 1.5em;
 }
 
-.logout-btn {
+#logout-btn {
   position: absolute;
   top: 2em;
   right: 2em;

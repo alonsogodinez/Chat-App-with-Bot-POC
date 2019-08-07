@@ -3,9 +3,12 @@ const $chatroomMessages = $('.chatroom-messages');
 const $chatroomMsgButton = $('#chatroom-msg-button');
 const $chatroomMsgInput = $('#chatroom-msg-input');
 const $createChatBtn = $('#create-chat-btn');
+const $logoutBtn = $('#logout-btn');
 let currentRoom;
 
-const authData = JSON.parse(window.localStorage.getItem("authData"));
+const authData = JSON.parse(window.localStorage.getItem('authData'));
+if(!authData || !authData.token) window.location = '/login';
+
 const chatRoomsSocket = io.connect('/chat', {
     'query': 'token=' + authData.token
 });
@@ -24,6 +27,16 @@ chatRoomsSocket.on('newMessage', message => {
     }
 
 });
+
+$logoutBtn.click(() => {
+    axios.post('/api/v1/logout')
+        .then(()=>  {
+            window.localStorage.clear();
+            window.location = '/login';
+        })
+
+});
+
 
 const createRoom = (name) => {
     if(!name) {
